@@ -1,16 +1,16 @@
 # ME-RU メール
 ## The AI Email Agent
 
-ME-RU is an AI-powered email assistant that fetches emails from your inbox (Gmail or Microsoft Exchange), analyzes them using OpenAI, and extracts calendar events for you.
+ME-RU is an AI-powered email assistant that fetches emails from your inbox (Gmail), analyzes them using OpenAI, and extracts calendar events for you.
 
 ## Features
-- Fetch recent emails via IMAP or Microsoft Exchange Web Services (EWS)
+- Fetch recent emails via gmail api
 - Analyze email content with OpenAI to identify meeting details
 - Expose a simple REST API for synchronizing emails
 - Future support: calendar integration, custom workflows
 
 ## Tech Stack
-- **Backend:** Python, FastAPI, exchangelib, python-dotenv, OpenAI
+- **Backend:** Python, FastAPI, gmail, python-dotenv, OpenAI
 - **Frontend:** Next.js (coming soon)
 
 ## Prerequisites
@@ -20,7 +20,7 @@ ME-RU is an AI-powered email assistant that fetches emails from your inbox (Gmai
 ## Environment Variables
 Create a `.env` file in the project root with the following:
 
-```bash
+```json
 OPENAI_API_KEY=your-openai-api-key
 EMAIL_ADDRESS=your-email@example.com
 EMAIL_PASSWORD=your-email-password-or-app-password
