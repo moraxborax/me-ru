@@ -1,0 +1,41 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.so
+
+# Virtual environments
+.env/
+.venv/
+venv/
+ENV/
+
+# Python dotenv environment files
+.env
+.env.*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# VSCode
+.vscode/
+
+# Node modules
+frontend/node_modules/
+
+# Build output
+frontend/.next/
+frontend/out/
+
+# Log files
+*.log
+
+# Misc
+*.sqlite3
+*.db
+
+# OAuth and API credentials
+token.pickle
+client_secret.json
+*.pickle
+credentials.json
