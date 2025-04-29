@@ -1,14 +1,17 @@
-from fastapi import APIRouter, HTTPException
-from backend.services.gmail_client import fetch_recent_emails
+from fastapi import APIRouter, HTTPException, Query
+from backend.services.gmail_client import fetch_recent_emails, list_labels
 import logging
 
 router = APIRouter()
 logger = logging.getLogger(__name__)
 
 @router.get("/emails")
-def sync_emails():
+def sync_emails(
+    label_name: str = Query(None, description="Gmail label name to filter emails"),
+    label_id: str = Query(None, description="Gmail label ID to filter emails (overrides label_name)")
+):
     try:
-        emails = fetch_recent_emails(limit=10)
+        emails = fetch_recent_emails(limit=10, label_name=label_name, label_id=label_id)
         return {"status": "success", "emails": emails}
     except HTTPException as e:
         # Re-raise FastAPI HTTPExceptions
@@ -16,6 +19,15 @@ def sync_emails():
     except Exception as e:
         logger.error(f"Error syncing emails: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Error syncing emails: {str(e)}")
+
+@router.get("/labels")
+def get_labels():
+    try:
+        labels = list_labels()
+        return {"status": "success", "labels": labels}
+    except Exception as e:
+        logger.error(f"Error fetching labels: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Error fetching labels: {str(e)}")
 
 # @router.post("/calendar")
 # def sync_calendar(event: dict):

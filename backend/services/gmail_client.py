@@ -56,30 +56,50 @@ def get_gmail_service():
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to build Gmail service: {str(e)}")
 
-def fetch_recent_emails(limit=5):
+# LEGACY: Fetch recent emails from inbox only
+# def fetch_recent_emails(limit=5):
+#     ...
+
+def get_label_id_by_name(label_name):
+    service = get_gmail_service()
+    labels = service.users().labels().list(userId='me').execute().get('labels', [])
+    for label in labels:
+        if label['name'].lower() == label_name.lower():
+            return label['id']
+    raise HTTPException(status_code=404, detail=f"Label '{label_name}' not found.")
+
+def fetch_recent_emails(limit=5, label_name=None, label_id=None):
+    service = get_gmail_service()
+    query_params = {'userId': 'me', 'maxResults': limit}
+    if label_name:
+        label_id = get_label_id_by_name(label_name)
+    if label_id:
+        query_params['labelIds'] = [label_id]
+    results = service.users().messages().list(**query_params).execute()
+    messages = results.get('messages', [])
+    
+    if not messages:
+        return []
+            
+    emails = []
+    for msg in messages:
+        msg_data = service.users().messages().get(userId='me', id=msg['id'], format='full').execute()
+        payload = msg_data.get('payload', {})
+        headers = payload.get('headers', [])
+        subject = next((h['value'] for h in headers if h['name'] == 'Subject'), '')
+        sender = next((h['value'] for h in headers if h['name'] == 'From'), '')
+        snippet = msg_data.get('snippet', '')
+        emails.append({
+            'subject': subject,
+            'from': sender,
+            'snippet': snippet
+        })
+    return emails
+
+def list_labels():
     try:
         service = get_gmail_service()
-        results = service.users().messages().list(userId='me', maxResults=limit).execute()
-        messages = results.get('messages', [])
-        
-        if not messages:
-            return []
-            
-        emails = []
-        for msg in messages:
-            msg_data = service.users().messages().get(userId='me', id=msg['id'], format='full').execute()
-            payload = msg_data.get('payload', {})
-            headers = payload.get('headers', [])
-            subject = next((h['value'] for h in headers if h['name'] == 'Subject'), '')
-            sender = next((h['value'] for h in headers if h['name'] == 'From'), '')
-            snippet = msg_data.get('snippet', '')
-            emails.append({
-                'subject': subject,
-                'from': sender,
-                'snippet': snippet
-            })
-        return emails
-    except HTTPException as e:
-        raise e
+        results = service.users().labels().list(userId='me').execute()
+        return results.get('labels', [])
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error fetching emails: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Error listing labels: {str(e)}")
