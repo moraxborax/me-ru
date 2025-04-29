@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 @router.get("/emails")
 def sync_emails():
     try:
-        emails = fetch_recent_emails(limit=5)
+        emails = fetch_recent_emails(limit=10)
         return {"status": "success", "emails": emails}
     except HTTPException as e:
         # Re-raise FastAPI HTTPExceptions

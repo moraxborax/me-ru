@@ -39,3 +39,7 @@ token.pickle
 client_secret.json
 *.pickle
 credentials.json
+
+#legacy code
+email_imap_client.py
+exchange_client.py
