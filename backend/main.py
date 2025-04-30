@@ -30,7 +30,7 @@ if missing_recommended:
 app = FastAPI(
     title="ME-RU - AI Email Agent",
     description="An AI-powered email assistant that fetches and analyzes your emails",
-    version="0.0.3"
+    version="0.1.0"
 )
 
 app.include_router(sync.router, prefix="/sync")
