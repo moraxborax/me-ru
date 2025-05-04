@@ -1,6 +1,10 @@
 # ME-RU メール
 ## The AI Email Agent
 
+[![GitHub stars](https://img.shields.io/github/stars/moraxborax/me-ru?style=social)](https://github.com/moraxborax/me-ru)
+[![GitHub forks](https://img.shields.io/github/forks/moraxborax/me-ru?style=social)](https://github.com/moraxborax/me-ru)
+[![GitHub watchers](https://img.shields.io/github/watchers/moraxborax/me-ru?style=social)](https://github.com/moraxborax/me-ru)
+
 ME-RU is an AI-powered email assistant that fetches emails from your Gmail inbox, analyzes them using OpenAI, and extracts calendar events for you. Built with modern Python and the power of GPT models, it helps you stay on top of your email-based scheduling.
 
 ## Features
