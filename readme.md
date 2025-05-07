@@ -106,4 +106,10 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## License
 MIT License 
 
+<a href="https://github.com/moraxborax/me-ru/tree/backend">
+<img src="./python-powered-w.svg" alt="drawing" style="width:192px;"/>
+</a>
 
+<a href="https://github.com/moraxborax/me-ru/tree/frontend">
+<img src="./nextjs-icon-dark-background.svg" alt="drawing" style="width:64px;"/>
+</a>
