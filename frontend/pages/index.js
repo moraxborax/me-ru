@@ -80,6 +80,8 @@ export default function Home() {
       transition: 'all 0.2s ease',
       backgroundColor: darkMode ? '#1a1a1a' : '#ffffff',
       minHeight: '100vh',
+      position: 'relative',
+      paddingBottom: '100px', // Add padding at the bottom for the footer
     },
     card: {
       marginTop: '20px', 
@@ -128,11 +130,40 @@ export default function Home() {
       alignItems: 'center',
       gap: '6px',
       transition: 'all 0.2s ease',
+    },
+    footer: {
+      position: 'absolute',
+      bottom: 0,
+      left: 0,
+      right: 0,
+      padding: '20px',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: darkMode ? '#222' : '#f0f0f0',
+      transition: 'all 0.2s ease',
+      gap: '30px',
+    },
+    footerText: {
+      fontSize: '14px',
+      opacity: 0.7,
+      marginRight: '10px',
+    },
+    logoContainer: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: '10px',
+    },
+    logo: {
+      height: '40px',
+      width: 'auto',
+      transition: 'transform 0.2s ease',
+      cursor: 'pointer',
     }
   };
 
   return (
-    <div style={{...styles.container, position: 'relative'}}>
+    <div style={{...styles.container}}>
       <button 
         style={styles.toggleBtn}
         onClick={() => setDarkMode(!darkMode)}
@@ -193,6 +224,31 @@ export default function Home() {
           </div>
         </div>
       )}
+
+      {/* Footer with tech stack logos */}
+      <footer style={styles.footer}>
+        <span style={styles.footerText}>Powered by:</span>
+        <div style={styles.logoContainer}>
+          <a href="https://nextjs.org" target="_blank" rel="noopener noreferrer">
+            <img 
+              src="/images/nextjs-icon-dark-background.svg" 
+              alt="Next.js" 
+              style={styles.logo}
+              onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
+              onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
+            />
+          </a>
+          <a href="https://www.python.org" target="_blank" rel="noopener noreferrer">
+            <img 
+              src="/images/python-powered-w.svg" 
+              alt="Python" 
+              style={styles.logo}
+              onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
+              onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
+            />
+          </a>
+        </div>
+      </footer>
     </div>
   );
 } 
