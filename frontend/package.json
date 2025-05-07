@@ -1,16 +1,20 @@
 {
   "name": "me-ru-frontend",
-  "version": "0.1.0",
+  "version": "0.0.3",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "dev:all": "concurrently \"npm run dev\" \"cd .. && uvicorn backend.main:app --reload\""
   },
   "dependencies": {
+    "axios": "latest",
     "next": "latest",
     "react": "latest",
-    "react-dom": "latest",
-    "axios": "latest"
+    "react-dom": "latest"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
   }
 }
