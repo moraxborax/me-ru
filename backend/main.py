@@ -1,5 +1,4 @@
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
 from backend.routers import sync
 from dotenv import load_dotenv
 import logging
@@ -31,16 +30,7 @@ if missing_recommended:
 app = FastAPI(
     title="ME-RU - AI Email Agent",
     description="An AI-powered email assistant that fetches and analyzes your emails",
-    version="0.0.3"
-)
-
-# Add CORS middleware
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # Frontend URL
-    allow_credentials=True,
-    allow_methods=["*"],  # Allow all methods
-    allow_headers=["*"],  # Allow all headers
+    version="0.1.0"
 )
 
 app.include_router(sync.router, prefix="/sync")
