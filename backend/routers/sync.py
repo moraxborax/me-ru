@@ -9,11 +9,12 @@ openai_client = OpenAIClient()
 
 @router.get("/emails")
 def sync_emails(
+    limit: int = Query(10, description="Number of emails to fetch"),
     label_name: str = Query(None, description="Gmail label name to filter emails"),
     label_id: str = Query(None, description="Gmail label ID to filter emails (overrides label_name)")
 ):
     try:
-        emails = fetch_recent_emails(limit=10, label_name=label_name, label_id=label_id)
+        emails = fetch_recent_emails(limit=limit, label_name=label_name, label_id=label_id)
         return {"status": "success", "emails": emails}
     except HTTPException as e:
         raise e
@@ -32,11 +33,12 @@ def get_labels():
 
 @router.get("/extract-events")
 def extract_events(
+    limit: int = Query(10, description="Number of emails to fetch"),
     label_name: str = Query(None, description="Gmail label name to filter emails"),
     label_id: str = Query(None, description="Gmail label ID to filter emails (overrides label_name)")
 ):
     try:
-        emails = fetch_recent_emails(limit=10, label_name=label_name, label_id=label_id)
+        emails = fetch_recent_emails(limit=limit, label_name=label_name, label_id=label_id)
         all_events = []
         
         for email in emails:
